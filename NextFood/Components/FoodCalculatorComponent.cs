@@ -7,6 +7,7 @@ using Eco.Gameplay.Items;
 using Eco.Gameplay.Players;
 using Eco.Simulation;
 
+// Taken directly from original version - https://gitlab.com/quequiere/nextfood/-/blob/master/Components/FoodCalculatorComponent.cs
 namespace NextFood.Components
 {
     public class FoodCalculatorComponent
