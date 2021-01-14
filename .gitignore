@@ -1,0 +1,5 @@
+﻿*.dll
+/packages
+/.vs
+/NextFood/bin
+/NextFood/obj
