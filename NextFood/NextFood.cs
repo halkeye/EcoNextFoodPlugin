@@ -113,35 +113,38 @@ namespace NextFood
                     .OrderByDescending(pair => pair.Value)
                     .Take(3);
 
-                List<LocString> locationStrs = new List<LocString>();
-                foreach (var possibleBuy in possibleBuys) {
-                    WorldObject store = whereArtFood[possibleBuy.Key].First();
-                    
-                    LocString itemValue = LocStringExtensions.Style(
-                        Localizer.DoStr(Math.Round(possibleBuy.Value, 2).ToString()),
-                        Text.Styles.Positive
-                    );
-                    LocStringBuilder locations = new LocStringBuilder();
-                    foreach (var food in whereArtFood[possibleBuy.Key])
-                    {
-                        if (!locations.Empty)
-                        {
-                            locations.Append(", ");
-                        }
-                        locations.Append(food.UILinkContent());
-                    }
-
-                    locationStrs.Add(Localizer.Format(
-                        "{0} will give you {1} points and can be found at: {2}",
-                        possibleBuy.Key.UILinkContent(),
-                        itemValue,
-                        locations
-                    ));
-                }
-
                 ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood(NG) plugin ==="))), user);
-                locationStrs.ForEach(m => ChatManager.ServerMessageToPlayer(m, user));
-                
+                if (possibleBuys.Count() > 0)
+                {
+                    foreach (var possibleBuy in possibleBuys)
+                    {
+                        WorldObject store = whereArtFood[possibleBuy.Key].First();
+
+                        LocString itemValue = LocStringExtensions.Style(
+                            Localizer.DoStr(Math.Round(possibleBuy.Value, 2).ToString()),
+                            Text.Styles.Positive
+                        );
+                        LocStringBuilder locations = new LocStringBuilder();
+                        foreach (var food in whereArtFood[possibleBuy.Key])
+                        {
+                            if (!locations.Empty)
+                            {
+                                locations.Append(", ");
+                            }
+                            locations.Append(food.UILinkContent());
+                        }
+
+                        ChatManager.ServerMessageToPlayer(Localizer.Format(
+                            "{0} will give you {1} points and can be found at: {2}",
+                            possibleBuy.Key.UILinkContent(),
+                            itemValue,
+                            locations
+                        ), user);
+                    }
+                } else
+                {
+                    ChatManager.ServerMessageToPlayer(Localizer.DoStr("Could not find you any food"), user);
+                }
             }, user);
         }
 
