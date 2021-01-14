@@ -61,7 +61,7 @@ namespace NextFood
 
 
         [ChatCommand("Suggests what food you should get next.", "nextfood")]
-        public static void NextFoodCmd(User user)
+        public static void NextFoodCmd(User user, String count = "3")
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -112,7 +112,7 @@ namespace NextFood
                     .ToDictionary(it => it, it => FoodCalculatorComponent.getSkillPointsVariation(user.Player, it as FoodItem))
                     .Where(k => k.Value > 0)
                     .OrderByDescending(pair => pair.Value)
-                    .Take(3);
+                    .Take(Int32.Parse(count));
 
                 ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood(NG) plugin ==="))), user);
                 if (possibleBuys.Count() > 0)
