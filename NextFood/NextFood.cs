@@ -62,6 +62,8 @@ namespace NextFood
         [ChatCommand("Suggests what food you should get next.", "nextfood")]
         public static void NextFoodCmd(User user)
         {
+            Dictionary<FoodItem, HashSet<WorldObject>> whereArtFood = new Dictionary<FoodItem, HashSet<WorldObject>>();
+
             IEnumerable<StoreComponent> storesWithFood = Stores
                 .Where(store => store.Enabled != false)
                 .Where(store => store.StoreData.SellOffers
@@ -69,55 +71,71 @@ namespace NextFood
                     .Where(item => item.Stack.Item is FoodItem)
                     .Count() > 0);
 
-            Dictionary<TradeOffer, List<StoreComponent>> foodStores = new Dictionary<TradeOffer, List<StoreComponent>>();
-
             foreach (StoreComponent store in storesWithFood) {
                 IEnumerable<TradeOffer> foodTrades = store.StoreData.SellOffers.Where(item => item.Stack.Quantity > 0).Where(item => item.Stack.Item is FoodItem);
                 foreach (TradeOffer trade in foodTrades)
                 {
-                    if (!foodStores.ContainsKey(trade))
+                    FoodItem foodItem = trade.Stack.Item as FoodItem;
+                    if (!whereArtFood.ContainsKey(foodItem))
                     {
-                        foodStores.Add(trade, new List<StoreComponent>());
+                        whereArtFood.Add(foodItem, new HashSet<WorldObject>());
                     }
-                    foodStores[trade].Add(store);
+                    whereArtFood[foodItem].Add(store.Parent);
                 }
             }
 
-            IEnumerable<KeyValuePair<TradeOffer, float>> possibleBuys = foodStores.Keys
-                .ToDictionary(it => it, it => FoodCalculatorComponent.getSkillPointsVariation(user.Player, it.Stack.Item as FoodItem))
+            IEnumerable<StorageComponent> accessibleStorage = WorldObjectUtil.AllObjsWithComponent<StorageComponent>().Where(i => i.Parent.Auth.UsersWithConsumerAccess.Contains(user));
+
+            foreach (StorageComponent storage in accessibleStorage)
+            {
+                foreach (ItemStack stack in storage.Inventory.Stacks)
+                {
+                    if (!(stack.Item is FoodItem))
+                    {
+                        continue;
+                    }
+
+                    FoodItem foodItem = stack.Item as FoodItem;
+                    if (!whereArtFood.ContainsKey(foodItem))
+                    {
+                        whereArtFood.Add(foodItem, new HashSet<WorldObject>());
+                    }
+                    whereArtFood[foodItem].Add(storage.Parent);
+                }
+            }
+
+            IEnumerable<KeyValuePair<FoodItem, float>> possibleBuys = whereArtFood.Keys
+                .ToDictionary(it => it, it => FoodCalculatorComponent.getSkillPointsVariation(user.Player, it as FoodItem))
                 .Where(k => k.Value > 0)
                 .OrderByDescending(pair => pair.Value)
                 .Take(3);
 
             CallWithErrorHandling<object>((lUser, args) =>
             {
-                List<String> locations = new List<string>();
+                // Item.Get<Item>().UILink() || this.UILink()<-- this is used in the recipes of items
+
+                List<LocString> locationStrs = new List<LocString>();
                 foreach (var possibleBuy in possibleBuys) {
-                    StoreComponent store = foodStores[possibleBuy.Key].First();
-                    string coords = Text.Location(store.Parent.OriginalPosition);
-                    string owner = Text.Item(store.Parent.DisplayName);
-                    string food = Text.Item(possibleBuy.Key.Stack.Item);
-
-                    string itemValue = Text.Size(1.3f, "+ " + Math.Round(possibleBuy.Value, 2));
-                    // itemValue = Text.Bold(itemValue);
-                    itemValue = Text.ColorUnity(Color.Green.UInt, itemValue);
-
-                    locations.Add(
-                        Localizer.Format(
-                            "{0} bought at {1}{2} will give you {3} skill points",
-                            food,
-                            owner,
-                            coords,
-                            itemValue
-                        )
+                    WorldObject store = whereArtFood[possibleBuy.Key].First();
+                    
+                    LocString itemValue = LocStringExtensions.Style(
+                        Localizer.DoStr(Math.Round(possibleBuy.Value, 2).ToString()),
+                        Text.Styles.Positive
                     );
+                    // string itemValue = Text.ColorUnity(Color.Green.UInt, Text.Size(1.3f, "+ " + Math.Round(possibleBuy.Value, 2))));
+
+                    string locations = String.Join(", ", whereArtFood[possibleBuy.Key].Select(food => food.UILinkContent()));
+                    locationStrs.Add(Localizer.Format(
+                        "{0} will give you {1} points and can be found at: {2}",
+                        possibleBuy.Key.UILinkContent(),
+                        itemValue,
+                        locations
+                    ));
                 }
 
-                ChatManager.ServerMessageToPlayer(Localizer.DoStr(
-                    Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ===")) +
-                    "\n" +
-                    string.Join("\n", locations)
-                ), user);
+                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ==="))), user);
+                locationStrs.ForEach(m => ChatManager.ServerMessageToPlayer(m, user));
+                
             }, user);
             /* try
              {
