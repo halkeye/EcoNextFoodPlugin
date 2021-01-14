@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PackageLicenseExpression>Gnu Affero</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/halkeye/EcoNextFoodPlugin</PackageProjectUrl>
     <RepositoryUrl>https://github.com/halkeye/EcoNextFoodPlugin</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
@@ -11,6 +11,7 @@
     <AssemblyName>NextFood</AssemblyName>
     <RootNamespace>NextFood</RootNamespace>
     <OutputType>Library</OutputType>
+    <Authors>Gavin "halkeye" Mogan</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
