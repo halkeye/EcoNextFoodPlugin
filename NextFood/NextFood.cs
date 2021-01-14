@@ -17,6 +17,7 @@ using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
 using Eco.Gameplay.Players;
 using Eco.Gameplay.Systems.Chat;
+using Eco.Gameplay.Systems.TextLinks;
 using Eco.Shared.Localization;
 using Eco.Shared.Utils;
 using NextFood.Components;
@@ -131,12 +132,12 @@ namespace NextFood
                             {
                                 locations.Append(", ");
                             }
-                            locations.Append(food.UILinkContent());
+                            locations.Append(food.UILink());
                         }
 
                         ChatManager.ServerMessageToPlayer(Localizer.Format(
                             "{0} will give you {1} points and can be found at: {2}",
-                            possibleBuy.Key.UILinkContent(),
+                            possibleBuy.Key.UILink(),
                             itemValue,
                             locations
                         ), user);
