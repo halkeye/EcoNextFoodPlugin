@@ -110,7 +110,6 @@ namespace NextFood
 
                 IEnumerable<KeyValuePair<FoodItem, float>> possibleBuys = whereArtFood.Keys
                     .ToDictionary(it => it, it => FoodCalculatorComponent.getSkillPointsVariation(user.Player, it as FoodItem))
-                    .Where(k => k.Value > 0)
                     .OrderByDescending(pair => pair.Value)
                     .Take(Int32.Parse(count));
 
@@ -123,7 +122,7 @@ namespace NextFood
 
                         LocString itemValue = LocStringExtensions.Style(
                             Localizer.DoStr(Math.Round(possibleBuy.Value, 2).ToString()),
-                            Text.Styles.Positive
+                            possibleBuy.Value >= 0 ? Text.Styles.Positive : Text.Styles.Negative
                         );
                         LocStringBuilder locations = new LocStringBuilder();
                         foreach (var food in whereArtFood[possibleBuy.Key])
