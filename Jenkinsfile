@@ -50,4 +50,9 @@ pipeline {
     /*  }*/
     /*}*/
   }
+  post {
+    cleanup {
+      cleanWs()
+    }
+  }
 }
