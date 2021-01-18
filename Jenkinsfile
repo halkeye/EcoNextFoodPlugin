@@ -34,9 +34,9 @@ pipeline {
     }
     stage('Zip') {
       steps {
-        sh('mkdir -p Package/Mod/NextFood')
-        sh('mv NextFood/bin/Release/*/NextFood.dll Package/Mod/NextFood/NextFood.dll')
-        sh('cp README.md Package/Mod/NextFood/README.md')
+        sh('mkdir -p Package/Mods/NextFood')
+        sh('mv NextFood/bin/Release/*/NextFood.dll Package/Mods/NextFood/NextFood.dll')
+        sh('cp README.md Package/NextFood.README.md')
         zip(archive: true, dir: 'Package', zipFile: 'NextFood.zip', overwrite: true)
       }
     }
