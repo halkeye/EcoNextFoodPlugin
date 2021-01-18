@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Install Eco Modkit') {
       steps {
-        writeFile(file: 'EcoModKit.zip', text: httpRequest(url: 'https://s3-us-west-2.amazonaws.com/eco-releases/EcoModKit_v0.9.1.9-beta.zip').content)
+        sh('wget -q -O EcoModKit.zip https://s3-us-west-2.amazonaws.com/eco-releases/EcoModKit_v0.9.1.9-beta.zip')
         unzip(zipFile:'EcoModKit.zip', glob: 'ReferenceAssemblies/**/*')
         sh('mv ReferenceAssemblies Dependencies')
       }
