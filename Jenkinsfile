@@ -7,6 +7,10 @@ pipeline {
     ansiColor('xterm')
   }
 
+  environment {
+    HOME="${WORKSPACE}"
+  }
+
   stages {
     stage('Install Dependencies') {
       steps {
