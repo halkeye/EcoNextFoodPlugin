@@ -1,11 +1,20 @@
 # Eco NextFood Plugin
 
-Put useful info here
+Based on https://gitlab.com/quequiere/nextfood/
 
-## TODO
+## Usage
 
-~1) Figuring out item formatting better (for store link). ~
-~2) Have a message when it can't find anything. ~
-~3) And to search through storages you have access to~
-~4) Figure out why its sending it in "Notifications"~ (Figured it out, its 3nd parameter of chatmessage)
-~5) Make # to find customizable~
+Run /nextfood in your chat window under notifications
+
+Screenshot goes here
+
+### Options
+
+/nextfood - Lists the 3 best foods that can be found in stores or storages you have access to
+/nextfood # - Lists the # best foods that can be found in stores or storages you have access to
+
+## Todo
+
+* /nextfoodwindow? that pops up an info window
+
+
