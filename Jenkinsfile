@@ -17,19 +17,19 @@ pipeline {
       steps {
         writeFile(file: 'EcoModKit.zip', text: httpRequest(url: 'https://s3-us-west-2.amazonaws.com/eco-releases/EcoModKit_v0.9.1.9-beta.zip').content)
         unzip(zipFile: "EcoModKit_v0.9.1.9-beta.zip", glob: 'ReferenceAssemblies/**/*')
-        sh('mv ReferenceAssemblies', 'Dependencies')
+        sh('mv ReferenceAssemblies Dependencies')
       }
     }
     stage('Build') {
       steps {
         dir('NextFood') {
-          sh "dotnet publish -c Release -o -no-restore
+          sh("dotnet publish -c Release -o -no-restore")
         }
       }
     }
     stage('Zip') {
       steps {
-        sh "find"
+        sh("find")
       }
     }
     /*stage('Deploy release') {*/
