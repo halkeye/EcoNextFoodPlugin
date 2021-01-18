@@ -14,26 +14,29 @@ pipeline {
   stages {
     stage('Install Dependencies') {
       steps {
-        sh "dotnet restore"
+        sh 'dotnet restore'
       }
     }
     stage('Install Eco Modkit') {
       steps {
         sh('wget -q -O EcoModKit.zip https://s3-us-west-2.amazonaws.com/eco-releases/EcoModKit_v0.9.1.9-beta.zip')
         unzip(zipFile:'EcoModKit.zip', glob: 'ReferenceAssemblies/**/*')
-        sh('mv ReferenceAssemblies Dependencies')
+        sh('mkdir -p Dependencies')
+        sh('mv ReferenceAssemblies/* Dependencies/')
       }
     }
     stage('Build') {
       steps {
         dir('NextFood') {
-          sh("dotnet publish -c Release -o -no-restore")
+          sh('dotnet publish -c Release -o -no-restore')
         }
       }
     }
     stage('Zip') {
       steps {
-        sh("find")
+        sh('mkdir -p Package/Mod/NextFood')
+        sh('mv NextFood/bin/Release/*/NextFood.dll Package/Mod/NextFood.dll')
+        zip(archive: true, dir: 'Package', zipFile: 'NextFood.zip')
       }
     }
     /*stage('Deploy release') {*/
