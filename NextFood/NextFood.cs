@@ -92,13 +92,8 @@ namespace NextFood
 
                 foreach (StorageComponent storage in accessibleStorage)
                 {
-                    foreach (ItemStack stack in storage.Inventory.Stacks)
+                    foreach (ItemStack stack in storage.Inventory.Stacks.Where(item => item.Item is FoodItem))
                     {
-                        if (!(stack.Item is FoodItem))
-                        {
-                            continue;
-                        }
-
                         FoodItem foodItem = stack.Item as FoodItem;
                         if (!whereArtFood.ContainsKey(foodItem))
                         {
