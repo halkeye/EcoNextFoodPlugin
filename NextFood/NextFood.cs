@@ -101,6 +101,7 @@ namespace NextFood
 
             IEnumerable<KeyValuePair<FoodItem, float>> possibleBuys = whereArtFood.Keys
                 .ToDictionary(it => it, it => FoodCalculatorComponent.getSkillPointsVariation(user.Player, it as FoodItem))
+                .Where(it => it.Key.Calories != 0)
                 .OrderByDescending(pair => pair.Value)
                 .Take(Int32.Parse(count));
 
