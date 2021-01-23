@@ -24,9 +24,9 @@ using NextFood.Components;
 
 namespace NextFood
 {
-    public class NextFood : IChatCommandHandler
+    public class NextFoodChatCommand : IChatCommandHandler
     {
-        public NextFood()
+        public NextFoodChatCommand()
         {
         }
 
@@ -127,8 +127,8 @@ namespace NextFood
             return Localizer.DoStr(String.Join("\n", body));
         }
 
-        [ChatCommand("Suggests what food you should get next.", "nextfood")]
-        public static void NextFoodCmd(User user, String count = "3")
+        [ChatCommand("Suggests what food you should get next.", "")]
+        public static void NextFood(User user, String count = "3")
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -139,8 +139,8 @@ namespace NextFood
         }
 
 
-        [ChatCommand("Suggests what food you should get next.", "nextfood1")]
-        public static void NextFoodCmd1(User user, String count = "3")
+        [ChatCommand("Suggests what food you should get next.", "")]
+        public static void NextFood1(User user, String count = "3")
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -150,8 +150,8 @@ namespace NextFood
             }, user, count);
         }
 
-        [ChatCommand("Suggests what food you should get next.", "nextfood2")]
-        public static void NextFoodCmd2(User user, String count = "3")
+        [ChatCommand("Suggests what food you should get next.", "")]
+        public static void NextFood2(User user, String count = "3")
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -166,8 +166,8 @@ namespace NextFood
         }
 
 
-        [ChatCommand("Suggests what food you should get next.", "nextfood3")]
-        public static void NextFoodCmd3(User user, String count = "3")
+        [ChatCommand("Suggests what food you should get next.", "")]
+        public static void NextFood3(User user, String count = "3")
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -181,8 +181,8 @@ namespace NextFood
             }, user, count);
         }
 
-        [ChatCommand("Suggests what food you should get next.", "nextfood4")]
-        public static void NextFoodCmd4(User user, String count = "3")
+        [ChatCommand("Suggests what food you should get next.", "")]
+        public static void NextFood4(User user, String count = "3")
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
