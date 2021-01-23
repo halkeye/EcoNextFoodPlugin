@@ -33,7 +33,7 @@ namespace NextFood
         /// <inheritdoc />
         public string GetStatus()
         {
-            return "Idle.";
+            return "Active";
         }
 
         /// <inheritdoc />
