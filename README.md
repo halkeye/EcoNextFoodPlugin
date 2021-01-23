@@ -10,8 +10,8 @@ Screenshot goes here
 
 ### Options
 
-/nextfood - Lists the 3 best foods that can be found in stores or storages you have access to
-/nextfood # - Lists the # best foods that can be found in stores or storages you have access to
+* /nextfood - Lists the 3 best foods that can be found in stores or storages you have access to
+* /nextfood # - Lists the # best foods that can be found in stores or storages you have access to
 
 ## Todo
 
