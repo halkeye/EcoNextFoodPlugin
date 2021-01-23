@@ -129,8 +129,12 @@ namespace NextFood
             CallWithErrorHandling<object>((lUser, args) =>
             {
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
-                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ==="))), lUser);
-                ChatManager.ServerMessageToPlayer(nextFoodBody, lUser);
+                user.Player.InfoBoxLocStr(
+                    Localizer.DoStr(
+                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ===")) + "\n" +
+                        nextFoodBody
+                     )
+                 );
             }, user, count);
         }
 
