@@ -138,7 +138,7 @@ namespace NextFood
             }, user, count);
         }
 
-
+/*
         [ChatCommand("Suggests what food you should get next.", "")]
         public static void NextFood1(User user, String count = "3")
         {
@@ -189,6 +189,6 @@ namespace NextFood
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
                 lUser.Player.OpenInfoPanel(Localizer.DoStr("What should you eat next?"), nextFoodBody, "");
             }, user, count);
-        }
+        }*/
     }
 }
