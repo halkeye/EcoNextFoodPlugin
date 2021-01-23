@@ -52,7 +52,7 @@ namespace NextFood
             }
             catch (Exception e)
             {
-                ChatManager.ServerMessageToPlayer(new LocString("Error occurred while attempting to run that command. Error message: " + e), user);
+                ChatManager.ServerMessageToPlayer(Localizer.Format("Error occurred while attempting to run that command. Error message: {0}", e), user);
                 Console.WriteLine("An error occurred while attempting to execute an Eco command. Error message: " + e);
             }
         }
@@ -117,7 +117,7 @@ namespace NextFood
                         possibleBuy.Value >= 0 ? Text.Styles.Positive : Text.Styles.Negative
                     );
                     String locations = String.Join(", ", whereArtFood[possibleBuy.Key].Select(food => food.UILink()));
-                    body.Add(Localizer.DoStr($"{possibleBuy.Key.UILink()} will give you {itemValue} points and can be found at: {locations}"));
+                    body.Add(Localizer.Format("{0} will give you {1} points and can be found at: {2}", possibleBuy.Key.UILink(), itemValue, locations));
                 }
             }
             else
