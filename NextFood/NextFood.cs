@@ -1,15 +1,4 @@
-﻿/**
- * File: NextFood.cs
- * Eco Version: 9.x
- * 
- * Author: koka
- * 
- * 
- * Exports recipes to use in javascript
- * 
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Eco.Gameplay.Components;
@@ -59,28 +48,26 @@ namespace NextFood
 
         public static IEnumerable<StoreComponent> Stores => WorldObjectUtil.AllObjsWithComponent<StoreComponent>();
 
+        private static void addItem(Dictionary<FoodItem, HashSet<LocString>> whereArtFood, FoodItem foodItem, LocString uiLink) {
+            if (!whereArtFood.ContainsKey(foodItem))
+            {
+                whereArtFood.Add(foodItem, new HashSet<LocString>());
+            }
+            whereArtFood[foodItem].Add(uiLink);
+        }
+
         public static LocString NextFoodBody(User user, String count = "3")
         {
-            Dictionary<FoodItem, HashSet<WorldObject>> whereArtFood = new Dictionary<FoodItem, HashSet<WorldObject>>();
+            Dictionary<FoodItem, HashSet<LocString>> whereArtFood = new Dictionary<FoodItem, HashSet<LocString>>();
 
-            IEnumerable<StoreComponent> storesWithFood = Stores
-                .Where(store => store.Enabled != false)
-                .Where(store => store.StoreData.SellOffers
-                    .Where(item => item.Stack.Quantity > 0)
-                    .Where(item => item.Stack.Item is FoodItem)
-                    .Count() > 0);
+            if (user.Carrying != null && user.Carrying.Item is FoodItem)
+            {
+                addItem(whereArtFood, user.Carrying.Item as FoodItem, user.UILink());
+            }
 
-            foreach (StoreComponent store in storesWithFood) {
-                IEnumerable<TradeOffer> foodTrades = store.StoreData.SellOffers.Where(item => item.Stack.Quantity > 0).Where(item => item.Stack.Item is FoodItem);
-                foreach (TradeOffer trade in foodTrades)
-                {
-                    FoodItem foodItem = trade.Stack.Item as FoodItem;
-                    if (!whereArtFood.ContainsKey(foodItem))
-                    {
-                        whereArtFood.Add(foodItem, new HashSet<WorldObject>());
-                    }
-                    whereArtFood[foodItem].Add(store.Parent);
-                }
+            foreach (ItemStack stack in user.Inventory.ToolbarBackpack.Stacks.Where(item => item.Item is FoodItem))
+            {
+                addItem(whereArtFood, stack.Item as FoodItem, user.UILink());
             }
 
             IEnumerable<StorageComponent> enumerable = WorldObjectUtil.AllObjsWithComponent<StorageComponent>();
@@ -90,12 +77,23 @@ namespace NextFood
             {
                 foreach (ItemStack stack in storage.Inventory.Stacks.Where(item => item.Item is FoodItem))
                 {
-                    FoodItem foodItem = stack.Item as FoodItem;
-                    if (!whereArtFood.ContainsKey(foodItem))
-                    {
-                        whereArtFood.Add(foodItem, new HashSet<WorldObject>());
-                    }
-                    whereArtFood[foodItem].Add(storage.Parent);
+                    addItem(whereArtFood, stack.Item as FoodItem, storage.Parent.UILink());
+                }
+            }
+
+            IEnumerable<StoreComponent> storesWithFood = Stores
+                .Where(store => store.Enabled != false)
+                .Where(store => store.StoreData.SellOffers
+                    .Where(item => item.Stack.Quantity > 0)
+                    .Where(item => item.Stack.Item is FoodItem)
+                    .Count() > 0);
+
+            foreach (StoreComponent store in storesWithFood)
+            {
+                IEnumerable<TradeOffer> foodTrades = store.StoreData.SellOffers.Where(item => item.Stack.Quantity > 0).Where(item => item.Stack.Item is FoodItem);
+                foreach (TradeOffer trade in foodTrades)
+                {
+                    addItem(whereArtFood, trade.Stack.Item as FoodItem, store.Parent.UILink());
                 }
             }
 
@@ -110,13 +108,11 @@ namespace NextFood
             {
                 foreach (var possibleBuy in possibleBuys)
                 {
-                    WorldObject store = whereArtFood[possibleBuy.Key].First();
-
                     LocString itemValue = LocStringExtensions.Style(
                         Localizer.DoStr(Math.Round(possibleBuy.Value, 2).ToString()),
                         possibleBuy.Value >= 0 ? Text.Styles.Positive : Text.Styles.Negative
                     );
-                    String locations = String.Join(", ", whereArtFood[possibleBuy.Key].Select(food => food.UILink()));
+                    String locations = String.Join(", ", whereArtFood[possibleBuy.Key]);
                     body.Add(Localizer.Format("{0} will give you {1} points and can be found at: {2}", possibleBuy.Key.UILink(), itemValue, locations));
                 }
             }
