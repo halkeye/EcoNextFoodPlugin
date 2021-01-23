@@ -31,9 +31,9 @@ namespace NextFood
             return nameof(NextFood);
         }
 
-        private delegate void EcoCommandFunction(User user, params string[] args);
+        private delegate void EcoCommandFunction(User user, params int[] args);
 
-        private static void CallWithErrorHandling<TRet>(EcoCommandFunction toCall, User user, params string[] args)
+        private static void CallWithErrorHandling<TRet>(EcoCommandFunction toCall, User user, params int[] args)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace NextFood
             whereArtFood[foodItem].Add(uiLink);
         }
 
-        public static LocString NextFoodBody(User user, String count = "3")
+        public static LocString NextFoodBody(User user, int count = 3)
         {
             Dictionary<FoodItem, HashSet<LocString>> whereArtFood = new Dictionary<FoodItem, HashSet<LocString>>();
 
@@ -101,7 +101,7 @@ namespace NextFood
                 .ToDictionary(it => it, it => FoodCalculatorComponent.getSkillPointsVariation(user.Player, it as FoodItem))
                 .Where(it => it.Key.Calories != 0)
                 .OrderByDescending(pair => pair.Value)
-                .Take(Int32.Parse(count));
+                .Take(count);
 
             List<LocString> body = new List<LocString>(); 
             if (possibleBuys.Count() > 0)
@@ -124,7 +124,7 @@ namespace NextFood
         }
 
         [ChatCommand("Suggests what food you should get next.", "")]
-        public static void NextFood(User user, String count = "3")
+        public static void NextFood(User user, int count = 3)
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -140,7 +140,7 @@ namespace NextFood
 
 /*
         [ChatCommand("Suggests what food you should get next.", "")]
-        public static void NextFood1(User user, String count = "3")
+        public static void NextFood1(User user, int count = 3)
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -151,7 +151,7 @@ namespace NextFood
         }
 
         [ChatCommand("Suggests what food you should get next.", "")]
-        public static void NextFood2(User user, String count = "3")
+        public static void NextFood2(User user, int count = 3)
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -167,7 +167,7 @@ namespace NextFood
 
 
         [ChatCommand("Suggests what food you should get next.", "")]
-        public static void NextFood3(User user, String count = "3")
+        public static void NextFood3(User user, int count = 3)
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
@@ -182,7 +182,7 @@ namespace NextFood
         }
 
         [ChatCommand("Suggests what food you should get next.", "")]
-        public static void NextFood4(User user, String count = "3")
+        public static void NextFood4(User user, int count = 3)
         {
             CallWithErrorHandling<object>((lUser, args) =>
             {
