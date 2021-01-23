@@ -133,7 +133,7 @@ namespace NextFood
             CallWithErrorHandling<object>((lUser, args) =>
             {
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
-                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood(NG) plugin ==="))), lUser);
+                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ==="))), lUser);
                 ChatManager.ServerMessageToPlayer(nextFoodBody, lUser);
             }, user, count);
         }
@@ -145,7 +145,7 @@ namespace NextFood
             CallWithErrorHandling<object>((lUser, args) =>
             {
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
-                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood(NG) plugin ==="))), lUser);
+                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ==="))), lUser);
                 ChatManager.ServerMessageToPlayer(nextFoodBody, lUser);
             }, user, count);
         }
@@ -158,7 +158,7 @@ namespace NextFood
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
                 user.Player.InfoBoxLocStr(
                     Localizer.DoStr(
-                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood(NG) plugin ===")) + "\n" +
+                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ===")) + "\n" +
                         nextFoodBody
                      )
                  );
@@ -174,7 +174,7 @@ namespace NextFood
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
                 lUser.Player.OkBox(
                     Localizer.DoStr(
-                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood(NG) plugin ===")) + "\n" +
+                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ===")) + "\n" +
                         nextFoodBody
                      )
                  );
