@@ -12,6 +12,7 @@
     <RootNamespace>NextFood</RootNamespace>
     <OutputType>Library</OutputType>
     <Authors>Gavin "halkeye" Mogan</Authors>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
