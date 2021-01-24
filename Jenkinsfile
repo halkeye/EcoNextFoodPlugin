@@ -59,7 +59,7 @@ pipeline {
             -H "Content-Type: multipart/form-data" \
             -H "Accept: application/json" \
             -F "active=false" \
-            -F "filedata=${WORKSPACE}/NextFood.zip" \
+            -F "filedata=@${WORKSPACE}/NextFood.zip" \
             -F "version=${APP_VERSION}_${BUILD_NUMBER}" \
             -F "changelog=${BUILD_URL}/changes"
         ''')
