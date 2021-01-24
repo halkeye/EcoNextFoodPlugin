@@ -5,6 +5,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
     timeout(time: 30, unit: 'MINUTES')
     ansiColor('xterm')
+    disableResume()
   }
 
   environment {
@@ -40,15 +41,29 @@ pipeline {
         zip(archive: true, dir: 'Package', zipFile: 'NextFood.zip')
       }
     }
-    /*stage('Deploy release') {*/
-    /*  when { buildingTag() }*/
-    /*  environment { DOCKER = credentials('dockerhub-halkeye') }*/
-    /*  steps {*/
-    /*    sh 'docker login --username="$DOCKER_USR" --password="$DOCKER_PSW"'*/
-    /*    sh "docker tag ${dockerImage} ${dockerImage}:${TAG_NAME}"*/
-    /*    sh "docker push ${dockerImage}:${TAG_NAME}"*/
-    /*  }*/
-    /*}*/
+    stage('Deploy release') {
+      when { branch 'master' }
+      environment {
+        CREDS = credentials('modio-halkeye') 
+        GAME_ID = "6"
+        MOD_ID = "574190"
+      }
+      steps {
+        script {
+          env.APP_VERSION = sh(returnStdout: true, script: '''grep '<Version>' NextFood/EcoNextFoodPlugin.csproj | sed -r 's/.*>([0-9.]+)<.*/\1/g' ''').trim()
+        }
+        sh("""
+          curl -X POST https://api.mod.io/v1/games/${GAME_ID}/mods/${MOD_ID}/files \
+            -H 'Authorization: Bearer ${CREDS_PSW}' \
+            -H 'Content-Type: multipart/form-data' \
+            -H 'Accept: application/json' \
+            -F 'active=false' \
+            -F 'filedata=${WORKSPACE}/NextFood.zip' \
+            -F 'version=${VERSION}_${BUILD_NUMBER}' \
+            -F 'changelog=${BUILD_URL}/changes'
+        """)
+      }
+    }
   }
   post {
     cleanup {
