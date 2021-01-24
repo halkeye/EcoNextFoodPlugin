@@ -53,16 +53,16 @@ pipeline {
         script {
           env.APP_VERSION = sh(returnStdout: true, script: '''grep '<Version>' NextFood/EcoNextFoodPlugin.csproj | sed -r 's/.*>([0-9.]+)<.*/\1/g' ''').trim()
         }
-        sh("""
+        sh('''
           curl -X POST https://api.mod.io/v1/games/${GAME_ID}/mods/${MOD_ID}/files \
-            -H "Authorization: Bearer $BEARER_TOKEN" \
-            -H 'Content-Type: multipart/form-data' \
-            -H 'Accept: application/json' \
-            -F 'active=false' \
-            -F 'filedata=${WORKSPACE}/NextFood.zip' \
-            -F 'version=${APP_VERSION}_${BUILD_NUMBER}' \
-            -F 'changelog=${BUILD_URL}/changes'
-        """)
+            -H "Authorization: Bearer ${BEARER_TOKEN}" \
+            -H "Content-Type: multipart/form-data" \
+            -H "Accept: application/json" \
+            -F "active=false" \
+            -F "filedata=${WORKSPACE}/NextFood.zip" \
+            -F "version=${APP_VERSION}_${BUILD_NUMBER}" \
+            -F "changelog=${BUILD_URL}/changes"
+        ''')
       }
     }
   }
