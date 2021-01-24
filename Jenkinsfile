@@ -45,7 +45,7 @@ pipeline {
     stage('Deploy release') {
       when { branch 'master' }
       environment {
-        CREDS = credentials('modio-halkeye') 
+        BEARER_TOKEN = credentials('modio-halkeye')
         GAME_ID = "6"
         MOD_ID = "574190"
       }
@@ -55,7 +55,7 @@ pipeline {
         }
         sh("""
           curl -X POST https://api.mod.io/v1/games/${GAME_ID}/mods/${MOD_ID}/files \
-            -H 'Authorization: Bearer ${CREDS_PSW}' \
+            -H "Authorization: Bearer $BEARER_TOKEN" \
             -H 'Content-Type: multipart/form-data' \
             -H 'Accept: application/json' \
             -F 'active=false' \
