@@ -42,7 +42,7 @@ namespace NextFood
             catch (Exception e)
             {
                 ChatManager.ServerMessageToPlayer(Localizer.Format("Error occurred while attempting to run that command. Error message: {0}", e), user);
-                Console.WriteLine("An error occurred while attempting to execute an Eco command. Error message: " + e);
+                Console.WriteLine(Localizer.Format("Error occurred while attempting to run that command. Error message: {0}", e));
             }
         }
 
@@ -131,7 +131,7 @@ namespace NextFood
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
                 user.Player.InfoBoxLocStr(
                     Localizer.DoStr(
-                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ===")) + "\n" +
+                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, Localizer.DoStr("=== NextFood plugin ==="))) + "\n" +
                         nextFoodBody
                      )
                  );
@@ -145,7 +145,7 @@ namespace NextFood
             CallWithErrorHandling<object>((lUser, args) =>
             {
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
-                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ==="))), lUser);
+                ChatManager.ServerMessageToPlayer(Localizer.DoStr(Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, Localizer.DoStr("=== NextFood plugin ===")))), lUser);
                 ChatManager.ServerMessageToPlayer(nextFoodBody, lUser);
             }, user, count);
         }
@@ -158,7 +158,7 @@ namespace NextFood
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
                 user.Player.InfoBoxLocStr(
                     Localizer.DoStr(
-                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ===")) + "\n" +
+                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, Localizer.DoStr("=== NextFood plugin ==="))) + "\n" +
                         nextFoodBody
                      )
                  );
@@ -174,7 +174,7 @@ namespace NextFood
                 LocString nextFoodBody = NextFoodBody(lUser, args[0]);
                 lUser.Player.OkBox(
                     Localizer.DoStr(
-                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, "=== NextFood plugin ===")) + "\n" +
+                        Text.Size(1.5f, Text.ColorUnity(Color.Red.UInt, Localizer.DoStr("=== NextFood plugin ==="))) + "\n" +
                         nextFoodBody
                      )
                  );

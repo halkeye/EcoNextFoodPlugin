@@ -27,7 +27,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Release'">
-    <Exec Command="mkdir  &quot;$(SolutionDir)..\EcoServer\Mods\NextFood\&quot;;&#xD;&#xA;copy /Y &quot;$(OutDir)NextFood.dll&quot; &quot;$(SolutionDir)..\EcoServer\Mods\NextFood\&quot;;&#xD;&#xA;copy /Y &quot;$(OutDir)NextFood.pdb&quot; &quot;$(SolutionDir)..\EcoServer\&quot;" />
+    <Exec Command="mkdir  &quot;$(SolutionDir)..\EcoServer\Mods\NextFood\&quot;;&#xD;&#xA;mkdir  &quot;$(SolutionDir)..\EcoServer\Mods\Translations\&quot;;&#xD;&#xA;copy /Y &quot;$(OutDir)NextFood.dll&quot; &quot;$(SolutionDir)..\EcoServer\Mods\NextFood\&quot;;&#xD;&#xA;copy /Y &quot;$(SolutionDir)\NextFood\Translations\nextfood.csv&quot; &quot;$(SolutionDir)..\EcoServer\Mods\Translations\&quot;;&#xD;&#xA;copy /Y &quot;$(OutDir)NextFood.pdb&quot; &quot;$(SolutionDir)..\EcoServer\&quot;" />
   </Target>
 
   <ItemGroup>

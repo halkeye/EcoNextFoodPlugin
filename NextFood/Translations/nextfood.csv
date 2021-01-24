@@ -1,0 +1,7 @@
+Context,English,Gibberish,French,Spanish,German,Korean,BrazilianPortuguese,SimplifedChinese,Russian,Italian,Portuguese,Hungarian,Japanese,Norwegian,Polish,Dutch,Romanian,Danish,Czech,Swedish,Ukrainian,Greek,Arabic,Vietnamese,Turkish
+,What should you eat next?,,,,,,,,Что вам есть дальше?,,,,,,,,,,,,,,,,
+,Could not find you any food,,,,,,,,Не удалось найти вашей еды,,,,,,,,,,,,,,,,
+,=== NextFood plugin ===,,,,,,,,=== Плагин NextFood ===,,,,,,,,,,,,,,,,
+,Suggests what food you should get next.,,,,,,,,Подскажет какую еду вам следует съесть следующией.,,,,,,,,,,,,,,,,
+,{0} will give you {1} points and can be found at: {2},,,,,,,,{0} даст прирост {1} очков - Ваша еда находится в {2},,,,,,,,,,,,,,,,
+,Error occurred while attempting to run that command. Error message: {0},,,,,,,,Ошибка: {0},,,,,,,,,,,,,,,,
