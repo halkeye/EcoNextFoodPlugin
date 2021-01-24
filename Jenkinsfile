@@ -60,7 +60,7 @@ pipeline {
             -H 'Accept: application/json' \
             -F 'active=false' \
             -F 'filedata=${WORKSPACE}/NextFood.zip' \
-            -F 'version=${VERSION}_${BUILD_NUMBER}' \
+            -F 'version=${APP_VERSION}_${BUILD_NUMBER}' \
             -F 'changelog=${BUILD_URL}/changes'
         """)
       }
