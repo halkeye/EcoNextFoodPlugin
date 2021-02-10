@@ -2,7 +2,7 @@
 
 ## Usage
 
-Run /nextfood in a popup notification
+Run /nextfood in chat to get a popup notification of suggested food
 
 ![Screenshot showing nextfood command](https://thumb.modcdn.io/mods/cfd4/574190/thumb_1020x2000/unknown.png)
 

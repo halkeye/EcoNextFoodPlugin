@@ -43,7 +43,7 @@ pipeline {
       }
     }
     stage('Deploy release') {
-      when { branch 'master' }
+      when { buildingTag() }
       environment {
         BEARER_TOKEN = credentials('modio-halkeye')
         GAME_ID = "6"
