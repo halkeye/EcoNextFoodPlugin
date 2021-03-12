@@ -71,7 +71,7 @@ namespace NextFood
             }
 
             IEnumerable<StorageComponent> enumerable = WorldObjectUtil.AllObjsWithComponent<StorageComponent>();
-            IEnumerable<StorageComponent> accessibleStorage = enumerable.Where(i => i.Parent.Auth.Owners != null && (i.Parent.Auth.Owners.Contains(user) || i.Parent.Auth.UsersWithConsumerAccess.Contains(user)));
+            IEnumerable<StorageComponent> accessibleStorage = enumerable.Where(i => i.Parent.Auth.Owners != null && (i.Parent.Auth.Owners.Contains(user) || i.Parent.Auth.UsersWithFullAccess.Contains(user) || i.Parent.Auth.UsersWithConsumerAccess.Contains(user)));
 
             foreach (StorageComponent storage in accessibleStorage)
             {
