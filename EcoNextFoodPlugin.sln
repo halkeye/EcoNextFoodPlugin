@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{e532286f-d3db-4a40-90c5-5894a0dbe8af}") = "EcoNextFoodPlugin", "NextFood\EcoNextFoodPlugin.csproj", "{78495671-F4F3-441D-946A-F829C2C8A11E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcoNextFoodPlugin", "NextFood\EcoNextFoodPlugin.csproj", "{D507C58B-DC0E-41D1-AA19-F58DF0D926E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{78495671-F4F3-441D-946A-F829C2C8A11E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78495671-F4F3-441D-946A-F829C2C8A11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78495671-F4F3-441D-946A-F829C2C8A11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78495671-F4F3-441D-946A-F829C2C8A11E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D507C58B-DC0E-41D1-AA19-F58DF0D926E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D507C58B-DC0E-41D1-AA19-F58DF0D926E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D507C58B-DC0E-41D1-AA19-F58DF0D926E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D507C58B-DC0E-41D1-AA19-F58DF0D926E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

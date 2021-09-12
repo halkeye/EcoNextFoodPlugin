@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "EcoNextFoodPlugin": {
-      "commandName": "Executable",
-      "executablePath": "$(SolutionDir)..\\EcoServer\\EcoServer.exe",
-      "workingDirectory": "$(SolutionDir)..\\EcoServer\\"
-    }
-  }
-}
