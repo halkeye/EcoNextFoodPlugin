@@ -1,77 +1,46 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/halkeye/EcoNextFoodPlugin</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/halkeye/EcoNextFoodPlugin</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-    <PackageTags>Eco</PackageTags>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <AssemblyName>NextFood</AssemblyName>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>NextFood</RootNamespace>
-    <OutputType>Library</OutputType>
-    <Authors>Gavin "halkeye" Mogan</Authors>
-    <Version>0.0.1</Version>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>false</Optimize>
-    <NoWarn>1701;1702;1998</NoWarn>
-    <WarningLevel>5</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>false</Optimize>
-    <NoWarn>1701;1702</NoWarn>
-  </PropertyGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Release'">
-    <Exec Command="mkdir  &quot;$(SolutionDir)..\EcoServer\Mods\NextFood\&quot;;&#xD;&#xA;mkdir  &quot;$(SolutionDir)..\EcoServer\Mods\Translations\&quot;;&#xD;&#xA;copy /Y &quot;$(OutDir)NextFood.dll&quot; &quot;$(SolutionDir)..\EcoServer\Mods\NextFood\&quot;;&#xD;&#xA;copy /Y &quot;$(SolutionDir)\NextFood\Translations\nextfood.csv&quot; &quot;$(SolutionDir)..\EcoServer\Mods\Translations\&quot;;&#xD;&#xA;copy /Y &quot;$(OutDir)NextFood.pdb&quot; &quot;$(SolutionDir)..\EcoServer\&quot;" />
-  </Target>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0-rc.2.20475.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-rc.2.20475.5" />
-    <PackageReference Include="Nito.AsyncEx.Coordination" Version="5.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.9" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Eco.Core">
-      <HintPath Condition="Exists('..\Dependencies\Eco.Core.dll')">..\Dependencies\Eco.Core.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Eco\Server\Eco.Core\bin\Release\netstandard2.1\ref\Eco.Core.dll')">..\..\Eco\Server\Eco.Core\bin\Release\netstandard2.1\ref\Eco.Core.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Gameplay">
-      <HintPath Condition="Exists('..\Dependencies\Eco.Gameplay.dll')">..\Dependencies\Eco.Gameplay.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Eco\Server\Eco.Gameplay\bin\Release\netcoreapp3.1\ref\Eco.Gameplay.dll')">..\..\Eco\Server\Eco.Gameplay\bin\Release\netcoreapp3.1\ref\Eco.Gameplay.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Gameplay.dll</HintPath>
     </Reference>
     <Reference Include="Eco.ModKit">
-      <HintPath Condition="Exists('..\Dependencies\Eco.ModKit.dll')">..\Dependencies\Eco.ModKit.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Eco\Server\Eco.ModKit\bin\Release\netcoreapp3.1\ref\Eco.ModKit.dll')">..\..\Eco\Server\Eco.ModKit\bin\Release\netcoreapp3.1\ref\Eco.ModKit.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.ModKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Eco.Mods">
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Mods.dll</HintPath>
+    </Reference>
+    <Reference Include="Eco.Networking.ENet">
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Networking.ENet.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Plugins">
-      <HintPath Condition="Exists('..\Dependencies\Eco.Plugins.dll')">..\Dependencies\Eco.Plugins.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Eco\Server\Eco.Plugins\bin\Release\netcoreapp3.1\ref\Eco.Plugins.dll')">..\..\Eco\Server\Eco.Plugins\bin\Release\netcoreapp3.1\ref\Eco.Plugins.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Plugins.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Shared">
-      <HintPath Condition="Exists('..\Dependencies\Eco.Shared.dll')">..\Dependencies\Eco.Shared.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Eco\Server\Eco.Shared\bin\Release\netstandard2.1\ref\Eco.Shared.dll')">..\..\Eco\Server\Eco.Shared\bin\Release\netstandard2.1\ref\Eco.Shared.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Shared.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Simulation">
-      <HintPath Condition="Exists('..\Dependencies\Eco.Simulation.dll')">..\Dependencies\Eco.Simulation.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Eco\Server\Eco.Simulation\bin\Release\netcoreapp3.1\ref\Eco.Simulation.dll')">..\..\Eco\Server\Eco.Simulation\bin\Release\netcoreapp3.1\ref\Eco.Simulation.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Simulation.dll</HintPath>
+    </Reference>
+    <Reference Include="Eco.Stats">
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.Stats.dll</HintPath>
+    </Reference>
+    <Reference Include="Eco.WebServer">
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.WebServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Eco.World">
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.World.dll</HintPath>
     </Reference>
     <Reference Include="Eco.WorldGenerator">
-      <HintPath Condition="Exists('..\Dependencies\Eco.WorldGenerator.dll')">..\Dependencies\Eco.WorldGenerator.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Eco\Server\Eco.WorldGenerator\bin\Release\netcoreapp3.1\ref\Eco.WorldGenerator.dll')">..\..\Eco\Server\Eco.WorldGenerator\bin\Release\netcoreapp3.1\ref\Eco.WorldGenerator.dll</HintPath>
+      <HintPath>..\..\Eco.CafeMod\Dependencies\Eco.WorldGenerator.dll</HintPath>
     </Reference>
   </ItemGroup>
 

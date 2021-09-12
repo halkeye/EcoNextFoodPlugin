@@ -23,7 +23,7 @@ namespace NextFood.Components
         public static float getSkillPointsVariation(Player player, FoodItem food)
         {
             var stomach = player.User.Stomach;
-            return getNewSkillPointsBalance(player, food) - stomach.NutrientSkillRate;
+            return getNewSkillPointsBalance(player, food) - stomach.BalancedDietMult;
         }
 
         private static float getSkill(List<FoodItem> foodList)
@@ -45,9 +45,9 @@ namespace NextFood.Components
             }
 
 
-            float BalanceBonus = nutrientAvg.Values.Max() > 0 ? (nutrientAvg.Values.Sum() / (nutrientAvg.Values.Max() * 4)) * 2 : 0;
+            float BalanceBonus = nutrientAvg.Values().Max() > 0 ? (nutrientAvg.Values().Sum() / (nutrientAvg.Values().Max() * 4)) * 2 : 0;
 
-            float NutrientSkillRate = ((nutrientAvg.NutrientTotal * BalanceBonus) + EcoSim.Obj.EcoDef.BaseSkillGainRate) * DifficultySettings.Obj.Config.DifficultyModifiers.SkillGainMultiplier;
+            float NutrientSkillRate = ((nutrientAvg.NutrientTotal() * BalanceBonus) + EcoSim.Obj.EcoDef.BaseSkillGainRate) * DifficultySettings.Obj.Config.DifficultyModifiers.SkillGainMultiplier;
 
             return NutrientSkillRate;
         }
