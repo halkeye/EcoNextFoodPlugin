@@ -20,7 +20,7 @@ pipeline {
     }
     stage('Install Eco Modkit') {
       steps {
-        sh('wget -q -O EcoModKit.zip https://play.eco/s3/release/EcoModKit_v0.9.2.4-beta.zip')
+        sh('wget -q -O EcoModKit.zip https://play.eco/s3/release/EcoModKit_v0.9.4.1-beta.zip')
         unzip(zipFile:'EcoModKit.zip', glob: 'ReferenceAssemblies/**/*')
         sh('mkdir -p Dependencies')
         sh('mv ReferenceAssemblies/* Dependencies/')
